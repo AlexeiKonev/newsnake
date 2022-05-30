@@ -6,8 +6,7 @@ using UnityEngine;
  
     public class Bonus : MonoBehaviour
     {
-        //[SerializeField]
-        //private float _delayTimeDestroyItem = 2.5f;
+        
         [SerializeField]
         private FoodData foodData;
         [SerializeField]
@@ -17,9 +16,13 @@ using UnityEngine;
 
         void Awake()
         {
-            //StartCoroutine(DelayDelete());
-            _inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
-            foodData = GetComponent<FoodData>();
+
+        Destroy(this.gameObject, 8f);
+
+        //StartCoroutine(DelayDelete());
+        _inventory = GameObject.Find("Inventory").GetComponent<Inventory>();
+
+        //foodData = GetComponent<FoodData>();
 
         }
 
@@ -36,9 +39,9 @@ using UnityEngine;
 
         public void Eat()
         {
-            _inventory.bodyBonus = _inventory.bodyBonus + foodData.bodyBonus;
-            _inventory.timeBonus = _inventory.timeBonus + foodData.timeBonus;
-            _inventory.speedBonus = _inventory.speedBonus + foodData.speedBonus;
+            _inventory._bodyBonus = _inventory._bodyBonus + foodData.bodyBonus;
+            _inventory._timeBonus = _inventory._timeBonus + foodData.timeBonus;
+            _inventory._speedBonus = _inventory._speedBonus + foodData.speedBonus;
 
             _isEated = true;
 

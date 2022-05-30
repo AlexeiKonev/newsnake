@@ -11,8 +11,11 @@ public class Body : MonoBehaviour
         get { return _isLast; }
         set { _isLast = value; }
     }
-
+    float time=0.1f;
     private bool _deathTimerOn=true;
+
+    public bool _deathTimerSlow=false;
+
     public bool DeathTimerOn 
    {
         get { return _deathTimerOn; }
@@ -26,18 +29,21 @@ public class Body : MonoBehaviour
     }
 
     private  BodyGenerator _bodyGen;
-
+     
 
 
 
     private void Awake()
     {
+         
         _bodyGen = FindObjectOfType<BodyGenerator>();
+         
     }
 
     private void FixedUpdate()
-    {
-      DeathTimer();
+    { 
+            DeathTimer( );
+      
     }
     
     
@@ -47,15 +53,16 @@ public class Body : MonoBehaviour
         {
            DeathTimerOn = false;
            _timeLife =  15f;
-        }
+        } 
     }
-  private void DeathTimer()
+  private void DeathTimer( )
     {
-        if (DeathTimerOn && _isLast && _timeLife > 1)
-        {
-           
-            _timeLife -= 0.1f;
+        if ( DeathTimerOn && _isLast && _timeLife > 1)
+        { 
+                _timeLife -=   time;
+
         }
+
         if (_timeLife < 1)
         {
             _bodyGen.DeleteObj();
@@ -70,5 +77,39 @@ public class Body : MonoBehaviour
     {
         _isLast = false;
     }
+  public void SlowTimerSwitchOn()
+    {
+         time  = 0.001f;
+        _deathTimerSlow = true;
+        Debug.Log("time slowed");
+        StartCoroutine(DelayTimer());
+        
+
+
+    }
+    public void SlowTimerSwitchOff()
+    {
+         time= 0.1f;
+        _deathTimerSlow = false;
+        Debug.Log("time normal");
+
+
+    }
+      
+    IEnumerator DelayTimer()
+    {
+        yield return new WaitForSeconds(1f);
+        Debug.Log("1");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("2"); 
+        yield return new WaitForSeconds(1f);
+        Debug.Log("3");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("4");
+        yield return new WaitForSeconds(1f);
+        Debug.Log("5");
+        SlowTimerSwitchOff();
+    }
+
 
 }

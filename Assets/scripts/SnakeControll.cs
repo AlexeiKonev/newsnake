@@ -7,7 +7,8 @@ public class SnakeControll : MonoBehaviour
     private  Rigidbody _rigidBody;
 
     [SerializeField]
-    private float _moveSpeed=80f;
+    private float _moveSpeed=200f;
+     
     void Start()
     {
         _rigidBody = GetComponent<Rigidbody>();
@@ -29,6 +30,6 @@ public class SnakeControll : MonoBehaviour
     }
     public void SpeedBoost()
     {
-        _moveSpeed += 20f;
+        _moveSpeed += 50f;
     }
 }
